@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+html {
+    color: rgb(31, 65, 94);
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    height: 100%;
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    align-items: center;
+    background-color: rgb(255, 210, 0);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+h5 {
+    color: rgb(66, 115, 143);
+    font-weight: 400;
+    margin: 0;
+}
+
+.stopper {
+    font-weight: 600;
+    margin: 1rem 0 .5rem 0;
+}
+
+.best-time {
+    text-align: center;
+    color: rgb(66, 115, 143);
+    font-size: .8rem;
+    font-weight: 400;
+    line-height: 1.5rem;
+    margin: .2rem 0;
+}
+
+.wait {
+    color: rgb(230, 117, 41);
+    font-size: .8rem;
+    font-weight: 800;
+    margin: .5rem 0;
+    text-transform: none;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.cards-container {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1000px;
+}
+
+.cards-down, .cards-up {
+    border-radius: .5rem;
+    font-size: 3rem;
+    height: 140px;
+    line-height: 140px;
+    margin: .3rem;
+    text-align: center;
+    width: 100px;
+}
+
+.cards-down {
+    border: .3rem solid rgb(140, 183, 206);
+    background-color: aliceblue;
+    background-image: url("back.png");
+    box-shadow: 0.1rem 0.5rem 0.5rem 0 rgba(0,0,0,0.5);
+}
+
+.cards-up {
+    background-color: aliceblue;
+    color: rgb(255, 255, 255);
+    box-shadow: 0.1rem 0.5rem 0.5rem 0 rgba(0,0,0,0.5);
+}
+
+.hide {
+    display: none;
+}
+
+@media screen and (min-width:600px) {
+    .cards-down, .cards-up {
+        font-size: 3.5rem;
+        height: 170px;
+        line-height: 170px;
+        margin: .4rem;
+        text-align: center;
+        width: 120px;
+    }
+}
+
+@media screen and (min-width:800px) {
+    .cards-down, .cards-up {
+        font-size: 4rem;
+        height: 210px;
+        line-height: 210px;
+        margin: .4rem;
+        text-align: center;
+        width: 150px;
+    }
+}
+
+@keyframes flashup {
+    0% {opacity: 1;}
+    /* 50% {opacity: .75;} */
+    100% {opacity: 0;}
+}
+
+.flashUp {
+    animation-name: flashup;
+    animation-duration: 1000ms;
+}
+
+@keyframes flashdown {
+    0% {opacity: 0;}
+    /* 50% {opacity: .75;} */
+    100% {opacity: 1;}
+}
+
+.flashDown {
+    animation-name: flashdown;
+    animation-duration: 500ms;
+}
+
+@keyframes high-light {
+    0% {opacity: 0;
+        color: rgb(230, 117, 41);}
+    50% {opacity: 1;
+        color: rgb(230, 79, 41);
+        font-size: 1rem;
+        font-weight: 600;}
+    100% {opacity: 0;
+        color: rgb(230, 117, 41);}
+}
+
+.highlight {
+    animation-name: high-light;
+    animation-duration: 1000ms;
+    position: relative;
+}
