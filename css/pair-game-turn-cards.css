@@ -114,25 +114,27 @@ h5 {
 }
 
 @keyframes flashup {
-    0% {opacity: 1;}
-    /* 50% {opacity: .75;} */
-    100% {opacity: 0;}
+    0% {transform: rotateY(0deg);};
+    5% {transform: rotateY(90deg);};
+    100% {transform: rotateY(90deg);};
 }
 
 .flashUp {
     animation-name: flashup;
-    animation-duration: 500ms;
+    animation-duration: 150ms;
+    animation-timing-function: ease-in-out;
 }
 
 @keyframes flashdown {
-    0% {opacity: 0;}
-    /* 50% {opacity: .75;} */
-    100% {opacity: 1;}
+    0% {transform: rotateY(90deg);};
+    95% {transform: rotateY(90deg);};
+    100% {transform: rotateY(0deg);};
 }
 
 .flashDown {
     animation-name: flashdown;
-    animation-duration: 500ms;
+    animation-duration: 150ms;
+    animation-timing-function: ease-in-out;
 }
 
 @keyframes high-light {
@@ -153,5 +155,6 @@ h5 {
 .highlight {
     animation-name: high-light;
     animation-duration: 1000ms;
+    animation-timing-function: ease-in-out;
     position: relative;
 }

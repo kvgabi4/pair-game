@@ -16,6 +16,7 @@ let randomFigureArray = [];
 
 const figures = ['🐸', '🐔', '🐭', '🐻', '🐱'];
 
+// Randomize cards.
 const randomize = (arr) => {
     return arr.sort(() => Math.random() - 0.5);
 };
@@ -25,19 +26,23 @@ const randomizeCards = () => {
     cardsUp.forEach((item, index) => cardsUp[index].textContent = randomFigureArray[index])
 };
 
+// Add and remove classes.
 const addClass = (element, className) => {
     element.classList.add(className);
 };
+
 const removeClass = (element, className) => {
     element.classList.remove(className);
 };
 
+// When there is a hit.
 const hit = () => {
     hits += 1;
     previousCard = ['', NaN];
     return hits, previousCard;
 };
 
+// When there is no hit.
 const notHit = (index) => {
     addClass(cardsUp[index], 'hide');
     addClass(cardsUp[index], 'flashDown');
@@ -45,24 +50,28 @@ const notHit = (index) => {
     removeClass(cardsDown[index], 'flashUp');
 };
 
+// Counting of the steps.
 const stepCounting = () => {
     stepCounter += 1;
 };
 
+// Storing the previous card.
 const setPreviousCard = (value, index) => {
     previousCard = [value, index];
 };
 
-const setTime = (index) => {
-    setTimeout(() => {
+// Turn back the nothit cards.
+const turnBack = (index) => {
+     setTimeout(() => {
         notHit(previousCard[1]);
         notHit(index);
         setPreviousCard('', NaN);
         stepCounting();
-    }, 600)
+     }, 600)
     return stepCounter;
 };
 
+// Stopper settings.
 const twoDigits = (digits) => {
     digits < 10 ? digits = `0${digits}` : `${digits}`;
     return digits;
@@ -83,6 +92,16 @@ const startStopper = () => {
     }, 1000)
 };
 
+// Set best time.
+const bestTimeHighLight = () => {
+    if (time < bestTime) {
+        bestTime = time;
+        addClass(highlight, 'highlight');
+    };
+    highlight.textContent = `${timeTxt(bestTime)}`;
+};
+
+// End of the game. 5 seconds waiting before next round.
 const defaults = () => {
     previousCard = ['', NaN];
     stepCounter = 1;
@@ -90,15 +109,7 @@ const defaults = () => {
     time = 0;
 };
 
-const bestTimeHighLight = () => {
-    if (time < bestTime) {
-        bestTime = time;
-        addClass(highlight, 'highlight');
-    };
-    highlight.textContent = `${timeTxt(bestTime)}`;
-}
-
-const stopStopper = () => {
+const endOfTheGame = () => {
     clearInterval(timeStarting);
     bestTimeHighLight();
     defaults();
@@ -114,25 +125,31 @@ const stopStopper = () => {
         removeClass(highlight, 'highlight');
         clearInterval(timeEnding);
     }, 5000);
-}
+};
 
-cardsDown.forEach((item, index) => item.addEventListener('click', () => {
+// New game.
+const newGame = () => {
     if (stepCounter === 1) {
         startStopper();
         randomizeCards();
     };
+};
+
+// Main steps.
+cardsDown.forEach((item, index) => item.addEventListener('click', () => {
+    newGame();
     addClass(cardsDown[index], 'hide');
     addClass(cardsDown[index], 'flashDown');
     removeClass(cardsUp[index], 'hide');
     removeClass(cardsUp[index], 'flashUp');
     if (stepCounter % 2 === 0) {
-        cardsUp[index].textContent !== previousCard[0] ? setTime(index) : (hit(), stepCounting());
+        cardsUp[index].textContent !== previousCard[0] ? turnBack(index) : (hit(), stepCounting());
     } else {
         setPreviousCard(cardsUp[index].textContent, index);
         stepCounting();
     };
     if (hits === 5) {
         removeClass(wait, 'hidden');
-        stopStopper();
+        endOfTheGame();
     };
 }));
