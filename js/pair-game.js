@@ -14,6 +14,7 @@ let timeSetting;
 let timeEnding;
 let randomFigureArray = [];
 
+// Symbols of the cards.
 const figures = ['🐸', '🐔', '🐭', '🐻', '🐱'];
 
 // Randomize cards.
@@ -60,14 +61,26 @@ const setPreviousCard = (value, index) => {
     previousCard = [value, index];
 };
 
+// The cards should not be clickable during verification.
+const cannotBeClicked = () => {
+    cardsDown.forEach((item, index) => addClass(cardsDown[index], 'cannot-be-clicked'));
+};
+
+// The cards should be clickable after verification.
+const canBeClicked = () => {
+    cardsDown.forEach((item, index) => removeClass(cardsDown[index], 'cannot-be-clicked'));
+};
+
 // Turn back the nothit cards.
 const turnBack = (index) => {
-     setTimeout(() => {
+    cannotBeClicked();
+    setTimeout(() => {
         notHit(previousCard[1]);
         notHit(index);
         setPreviousCard('', NaN);
         stepCounting();
-     }, 600)
+        canBeClicked();
+    }, 1000)
     return stepCounter;
 };
 
@@ -84,6 +97,7 @@ const timeTxt = (time) => {
     return timeText;
 };
 
+// Start the stopwatch.
 const startStopper = () => {
     timeStarting = setInterval(() => {
         time += 1;
@@ -110,8 +124,8 @@ const defaults = () => {
 };
 
 const endOfTheGame = () => {
-    clearInterval(timeStarting);
     bestTimeHighLight();
+    clearTimeout(timeStarting);
     defaults();
     timeEnding = setInterval(() => {
         stopper.textContent = '00:00';
